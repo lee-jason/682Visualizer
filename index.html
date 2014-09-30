@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dota 2 Patch 6.82 Bonus Exp and Gold Visualizer</title>
+        
+    
+        <link rel="stylesheet" href="css/main.css" />
+    </head>
+    <body ng-app="bonus">
+        <h1><img class="dotaicon" src="img/dota2-icon.png">Dota 2 Patch 6.82 Bonus Exp and Gold Visualizer</h1>
+
+        <div class="formContainer" ng-controller="FormController as formCtrl">
+             <div class="formsInfoContainer" fit-height sticky>
+                 <h2>Legend</h2>
+                <div class="legend">
+                    <div class="b681 icon"></div><span>6.81</span>
+                    <div class="b682 icon"></div><span>6.82</span>
+                    <div class="b682b icon"></div><span>6.82b</span>
+                </div>
+                <h2>Configurable options</h2>
+                <form class="forms">
+                    <h3>victim configs</h3>
+                    <div class="sliderGroup">
+                        <label for="victimKillStreak">victim killstreak</label>
+                        <input type="range" name="victimKillStreak" min="0" max="10" ng-model="formCtrl.victimKillStreak" ng-change="formCtrl.update('victimKillStreak')">
+                        <input type="number" class="sliderValue" ng-model="formCtrl.victimKillStreak"></input>
+                    </div>
+                    <div class="sliderGroup">
+                        <label for="victimNW">victim net worth</label>
+                        <input type="range" name="victimNW" min="0" max="40500" ng-model="formCtrl.victimNW" ng-change="formCtrl.update('victimNW')">
+                        <input type="number" class="sliderValue" ng-model="formCtrl.victimNW"></input>
+                    </div>
+                    <div class="sliderGroup">
+                        <label for="victimTeamNW">victim team's net worth</label>
+                        <input type="range" name="victimTeamNW" min="0" max="202500" ng-model="formCtrl.victimTeamNW" ng-change="formCtrl.update('victimTeamNW')">
+                        <input type="number" class="sliderValue" ng-model="formCtrl.victimTeamNW"></input>
+                    </div>
+                    <div class="sliderGroup">
+                        <label for="victimTeamXP">victim team's total XP</label>
+                        <input type="range" name="victimTeamXP" min="0" max="162000" ng-model="formCtrl.victimTeamXP" ng-change="formCtrl.update('victimTeamXP')">
+                        <input type="number" class="sliderValue" ng-model="formCtrl.victimTeamXP" ></input>
+                    </div>
+                    <h3>killer configs</h3>
+                    <div class="sliderGroup">
+                        <label for="killerTeamNW">killer team's networth</label>
+                        <input type="range" name="killerTeamNW" min="0" max="202500" ng-model="formCtrl.killerTeamNW" ng-change="formCtrl.update('killerTeamNW')">
+                        <input type="number" class="sliderValue" ng-model="formCtrl.killerTeamNW"></input>
+                    </div>
+                    <div class="sliderGroup">
+                        <label for="killerTeamXP">killer team's total XP</label>
+                        <input type="range" name="killerTeamXP" min="0" max="162000" ng-model="formCtrl.killerTeamXP" ng-change="formCtrl.update('killerTeamXP')">
+                        <input type="number" class="sliderValue" ng-model="formCtrl.killerTeamXP"></input>
+                    </div>
+                    <div class="sliderGroup">
+                        <label for="assistingHeroes">number of involved heroes (killer + assists)</label>
+                        <input type="range" name="assistingHeroes" min="1" max="5" ng-model="formCtrl.assistingHeroes" ng-change="formCtrl.update('assistingHeroes')">
+                        <input type="number" class="sliderValue" ng-model="formCtrl.assistingHeroes"></input>
+                    </div>
+
+                </form>
+                <h2>Presets</h2>
+                <p>All other presets attemp to showcase a solo kill on the victim team's carry at 40mins.</p>
+                <p><i>Huge Deficit and Huge Lead are what if scenarios and should not be taken seriously.</i></p>
+                <div class="presetsContainer">
+                    <div class="clearfix presetItem">
+                        <button presets data-type="hugeDeficit">Huge Deficit</button>
+                        <i>killer team six bracers level 5 Crystal Maidens vs victim team six slotted fully farmed Level MAX Anti-Mages</i>
+                    </div>
+                    <div class="clearfix presetItem">
+                        <button presets data-type="deficit">Deficit</button>
+                        <i>killer team underleveled and is working toward mid game items vs victim team already have several late game items</i>
+                    </div>
+                    <div class="clearfix presetItem">
+                        <button presets data-type="slightDeficit">Slight Deficit</button>
+                        <i>killer team slightly underleveled has components for late game items vs victim team already have several late game items</i>
+                    </div>
+                    <div class="clearfix presetItem">
+                        <button presets data-type="even">Even</button>
+                        <i>both teams have solid mid game items and are working toward late game</i>
+                    </div>
+                    <div class="clearfix presetItem">
+                        <button presets data-type="slightLead">Slight Lead</button>
+                        <i>killer team already have late game items vs victim team slightly underleveled working toward late game items</i>
+                    </div>
+                    <div class="clearfix presetItem">
+                        <button presets data-type="lead">Lead</button>
+                        <i>killer team already have late game items vs victim team underleveled and is working toward mid game items</i>
+                    </div>
+                    <div class="clearfix presetItem">
+                        <button presets data-type="hugeLead">Huge Lead</button>
+                        <i>killer team multiple divines level 25 Medusas vs victim team 6 slotted wraith band level 5 Sniper</i>
+                    </div>
+                    
+                </div>
+
+                <div>
+                    <h4>Quick Analysis</h4>
+                    <p>Note how the team in the lead will gain a little less gold and exp than they used to compared to back in <span class="a681">6.81</span>, while the team that has less XP and Gold have bonuses offered to help close the gap.  Teams that are in the lead do not get any of these worth while bonuses that bring them above the <span class="a681">6.81</span> values. The only bonus they get is that they are already winning the xp + gold war and should use that to press their advantage. also note how ridiculous <span class="a682">6.82</span>'s gold and xp gain could be. It was literally uncapped. <span class="a682b">6.82b</span> seems to have ameliorated that by bringing it more inline to what <span class="a681">6.81</span> used to give.</p>
+                    <h4>Notes</h4>
+                    <p><strong>How to read the graphs:</strong> Mouse over the victim's level to see how much gold/exp you will get when you kill a hero of that level. Compare how much gold/exp you receive for each corresponding version.</p>
+                    <p>Play around with the sliders, or fine tune your stats by typing directly in the input boxes.</p>  <p>Compare your results as to how they were during the glorious <b class="a681">v6.81</b>, the rubberbandy five days of <b class="a682">v6.82</b> or the now current tweaked numbers of <b class='a682b'>v6.82b</b>. </p> <p>This only charts out single kills at a time, such as a gank on a mid hero.  To simulate a full team fight, update parameters after each kill accordingly and add the gold yourself. </p> <p>The extreme presets (Huge Deficit, Huge Lead) are for what if scenarios only and are highly unlikely to occur in a real game. Please do not base your opinion on the results of those and shout <i><b>ICEFRAUD!!!</b></i></p>
+                    
+                    <p>Not tested on older browsers or mobile devices. Please update your browser to a newer version if you'd like to test this. Mobile and Older Browser support coming who knows.</p>
+                </div>
+                <div class="references">
+                    6.82 bonus xp and gold calculations taken from Valve's <a href="http://www.dota2.com/rekindlingsoul/">Rekindling Soul</a> update page. bonus gold has been updated for the sept 27 update. bonus gold and exp has been further tweaked to include 6.82b.
+                    kill streak gold calculations taken from <a href="http://dota2.gamepedia.com/Gold#Reliable_.26_Unreliable_Gold">dota2.gamepedia.com/Gold</a>
+                    natural xp gain from kill taken from <a href="http://dota2.gamepedia.com/Experience">dota2.gamepedia.com/experience</a>
+                    base hero kill xp table taken from <a href="http://www.playdota.com/mechanics/experience">www.playdota.com/mechanics/experience</a>
+                </div>
+            </div>
+            
+            
+            <!--graphs moved under form controller out of pure laziness -->
+
+            <div class="graphContainer clearfix">
+                <div class="graphgroup">
+                    <span class="xaxis">victim level</span>
+                    <span class="yaxis">gold</span>
+                    <h3>Total Team Gold Gain (Individual + Bonus + Assists)</h3>
+                    <canvas width="600" height="250" class="goldgraph" data-type="totalGold" chart></canvas>
+                </div>
+                <div class="graphgroup">
+                    <span class="xaxis">victim level</span>
+                    <span class="yaxis">gold</span>
+                    <h3>Bonus Gold Gain (Bonus + Assists)</h3>
+                    <canvas width="600" height="250" class="goldgraph" data-type="bonusGold" chart></canvas>
+                </div>
+                <div class="graphgroup">
+                    <span class="xaxis">victim level</span>
+                    <span class="yaxis">gold</span>
+                    <h3>Killer Gold Gain (Individual)</h3>
+                    <canvas width="600" height="250" class="goldgraph" data-type="individualGold" chart></canvas>
+                </div>
+
+                <div class="graphgroup">
+                    <span class="xaxis">victim level</span>
+                    <span class="yaxis">exp</span>
+                    <h3>Total Team Exp Gain (Individual + Bonus + Assists)</h3>
+                    <canvas width="600" height="250" class="goldgraph" data-type="totalExp" chart></canvas>
+                </div>
+                <div class="graphgroup">
+                    <span class="xaxis">victim level</span>
+                    <span class="yaxis">exp</span>
+                    <h3>Bonus Exp Gain (Bonus + Assists)</h3>
+                    <canvas width="600" height="250" class="goldgraph" data-type="bonusExp" chart></canvas>
+                </div>
+                <div class="graphgroup">
+                    <span class="xaxis">victim level</span>
+                    <span class="yaxis">exp</span>
+                    <h3>Killer Exp Gain (Individual)</h3>
+                    <canvas width="600" height="250" class="goldgraph" data-type="individualExp" chart></canvas>
+                </div>
+            </div>
+
+        </div>
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-50368577-4', 'auto');
+    ga('send', 'pageview');
+
+    </script>
+        
+        <script src="js/chart.min.js" type="text/javascript"></script>
+        <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
+        <script src="js/angular.min.js" type="text/javascript"></script>
+        <script src="js/app.js" type="text/javascript"></script>
+    </body>
+</html>

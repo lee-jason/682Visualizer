@@ -1,0 +1,171 @@
+.clearfix:after { 
+   content: "."; 
+   visibility: hidden; 
+   display: block; 
+   height: 0; 
+   clear: both;
+}
+
+#teamA {
+    width:48%;
+    height:400px;
+}
+
+#teamB {
+    width:48%;
+    height:400px;
+}
+
+html {
+    box-model: border-box;
+    background-color:#f7f7ff;
+}
+
+.graphgroup {
+    float:left;
+    position:relative;
+    margin-bottom:16px;
+    margin-left:50px;
+}
+
+.graphContainer {
+    display:block;
+    width:600px;
+}
+
+
+
+
+
+.playerStatsB {
+    display:block;
+}
+
+.playerStatsA {
+    display:block;
+}
+
+canvas {
+    width:400px;
+    height:400px;
+}
+
+body {
+    width:1060px;
+}
+
+
+.forms {
+ 
+}
+
+.legend {
+
+
+
+
+}
+
+.xaxis {
+    font-weight: bold;
+    position: absolute;
+    bottom: -20px;
+    left: 240px;
+}
+
+.yaxis {
+    font-weight:bold;
+    position:absolute;
+    left:-50px;
+    top:150px;
+}
+
+.formContainer {
+    width: 100%;
+    position: relative;
+}
+
+.formsInfoContainer {
+    padding-bottom: 40px;
+    overflow-y: auto;
+    width: 540px;
+    position: absolute;
+    margin-left: 666px;
+}
+
+.icon {
+    width:14px;
+    height:14px;
+    display:inline-block;
+    border:1px solid black;
+    margin-left: 8px;
+}
+
+.b681 {
+    background-color:#0062ff;
+    color: #0062ff;
+}
+
+.b682 {
+    background-color:#f00;
+    color: #f00;
+}
+
+.b682b {
+    background-color:#ffb220;
+    color: #ffb220;
+}
+
+.legend span {
+    border:none;
+    position:relative;
+    top:-2px;
+    margin-left:2px;
+}
+
+.sliderGroup {
+    display:block;
+}
+
+.a681{
+    color: #0062ff;
+    font-weight:bold;
+}
+.a682b{
+    color: #ffb220;
+    font-weight:bold;
+}
+.a682{
+    
+    color: #f00;
+    font-weight:bold;
+}
+
+.references {
+    font-size:10px;
+}
+
+.presetItem button {
+    width: 100px;
+    display: inline-block;
+    float: left;
+}
+.presetItem i {
+    margin-left: 5px;
+    width: 400px;
+    display: inline-block;
+}
+.presetItem {
+    margin-bottom: 12px;
+}
+
+img.dotaicon {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    top: 10px;
+    margin-right: 10px;
+}
+h1 {
+    margin-left: 45px;
+}
