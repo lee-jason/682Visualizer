@@ -28,6 +28,7 @@
                         <label for="victimKillStreak">victim killstreak</label>
                         <input type="range" name="victimKillStreak" min="0" max="10" ng-model="formCtrl.victimKillStreak" ng-change="formCtrl.update('victimKillStreak')">
                         <input type="number" class="sliderValue" ng-model="formCtrl.victimKillStreak"></input>
+                        <span class="killstreakMessage">{{formCtrl.ksMessages[formCtrl.victimKillStreak]}}</span>
                     </div>
                     <div class="sliderGroup">
                         <label for="victimNW">victim net worth</label>
@@ -60,6 +61,12 @@
                         <input type="range" name="assistingHeroes" min="1" max="5" ng-model="formCtrl.assistingHeroes" ng-change="formCtrl.update('assistingHeroes')">
                         <input type="number" class="sliderValue" ng-model="formCtrl.assistingHeroes"></input>
                     </div>
+
+                    
+                    <h3>Save Code</h3>
+                    <label for="shareableCode">Share or paste a generated code here</label>
+<textarea class="saveCodeArea" type="text" name="shareableCode" ng-model="formCtrl.shareableCode" ng-change="formCtrl.updateValuesFromCode()"></textarea>
+
 
                 </form>
                 <h2>Presets</h2>
