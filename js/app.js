@@ -509,7 +509,7 @@
             
             this.calculate682TotalTeamExpGain = function(victimLevel, victimXP, alliedTeamXP, enemyTeamXP, involvedHeroCount){
                 var totalTeamXP = 0;
-                totalTeamXP += that.calculateKillXP(victimLevel)/involvedHeroCount;
+                totalTeamXP += that.calculateKillXP(victimLevel);
                 totalTeamXP += that.calculate682BonusXP(victimLevel,victimXP,alliedTeamXP,enemyTeamXP,involvedHeroCount) * involvedHeroCount;
                 return Math.floor(totalTeamXP);
             }
