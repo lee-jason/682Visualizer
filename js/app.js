@@ -6,6 +6,12 @@
     app.controller('FormController', function($scope){
         var that = this;
 
+        this.toggleData = {
+            t681: true,
+            t682: true,
+            t682b: true
+        }
+        
         this.victimNW = 13425;
         this.killerTeamXP = 72000;
         this.victimTeamXP = 82000;
@@ -68,20 +74,82 @@
                         labels.push(i+1);
                     }
                                     
-
+                var temp681Dataset = [];
+                var temp682Dataset = [];
+                var temp682bDataset = [];
                 
                 var reupdateChartData = function(){
                     
-                        for(var i = 0;i < goldChart.datasets[0].points.length;i++){
-                            goldChart.datasets[0].points[i].value = Math.floor(data681[i]);   
-                        }
-                        for(var i = 0;i < goldChart.datasets[1].points.length;i++){
-                            goldChart.datasets[1].points[i].value = Math.floor(data682[i]);   
-                        }
-                        for(var i = 0;i < goldChart.datasets[2].points.length;i++){
-                            goldChart.datasets[2].points[i].value = Math.floor(data682b[i]);   
-                        }
+                    var v681Exists = false;
+                    var v682Exists = false;
+                    var v682bExists = false;
                     
+                    for(var i = 0; i < goldChart.datasets.length; i++){
+                        if(goldChart.datasets[i].label === "v681"){
+                            v681Exists = true;
+                        }
+                        if(goldChart.datasets[i].label === "v682"){
+                            v682Exists = true;
+                        }
+                        if(goldChart.datasets[i].label === "v682b"){
+                            v682bExists = true;
+                        }
+                    }
+                    
+                    if(scope.formCtrl.toggleData.t681 && !v681Exists){
+                        goldChart.datasets.push(temp681Dataset);
+                    }
+                    if(scope.formCtrl.toggleData.t682 && !v682Exists){
+                        goldChart.datasets.push(temp682Dataset);
+                    }
+                    if(scope.formCtrl.toggleData.t682b && !v682bExists){
+                        goldChart.datasets.push(temp682bDataset);   
+                    }
+                    
+                    
+                    
+                    for(var j = 0; j < goldChart.datasets.length; j++){
+                        var data = [];
+                        if(goldChart.datasets[j].label === 'v681'){
+                            data = data681;
+                        }
+                        else if(goldChart.datasets[j].label === 'v682'){
+                            data = data682;
+                        }
+                        else if(goldChart.datasets[j].label === 'v682b'){
+                            data = data682b;
+                        }
+                        
+                        for(var i = 0;i < goldChart.datasets[j].points.length;i++){
+                            goldChart.datasets[j].points[i].value = Math.floor(data[i]);   
+                        }
+                    }
+                        
+                    if(!scope.formCtrl.toggleData.t681){
+                        //search for the dataset that has v681 as label
+                        for(var i = 0; i < goldChart.datasets.length; i++){
+                            if(goldChart.datasets[i].label === 'v681'){
+                                temp681Dataset = goldChart.datasets[i];
+                                goldChart.datasets.splice(i, 1);
+                            }
+                        }
+                    }
+                    if(!scope.formCtrl.toggleData.t682){
+                        for(var i = 0; i < goldChart.datasets.length; i++){
+                            if(goldChart.datasets[i].label === 'v682'){
+                                temp682Dataset = goldChart.datasets[i];
+                                goldChart.datasets.splice(i, 1);
+                            }
+                        }   
+                    }
+                    if(!scope.formCtrl.toggleData.t682b){
+                        for(var i = 0; i < goldChart.datasets.length; i++){
+                            if(goldChart.datasets[i].label === 'v682b'){
+                                temp682bDataset = goldChart.datasets[i];
+                                goldChart.datasets.splice(i, 1);
+                            }
+                        }   
+                    }
 
                     goldChart.update();
                 }
@@ -223,11 +291,10 @@
                
                 var goldChart = new Chart(elem[0].getContext('2d')).Line(data, options);
 
-                scope.$watchCollection('[formCtrl.victimKillStreak, formCtrl.victimNW, formCtrl.killerTeamXP, formCtrl.victimTeamXP, formCtrl.victimTeamNW, formCtrl.killerTeamNW, formCtrl.assistingHeroes]', function(newValues, oldValues){
-                    var pendingAction = false;
+                scope.$watchCollection('[formCtrl.victimKillStreak, formCtrl.victimNW, formCtrl.killerTeamXP, formCtrl.victimTeamXP, formCtrl.victimTeamNW, formCtrl.killerTeamNW, formCtrl.assistingHeroes, formCtrl.toggleData.t681, formCtrl.toggleData.t682, formCtrl.toggleData.t682b]', function(newValues, oldValues){
                         reCalculateData();
                         reupdateChartData();
-                });
+                }, true);
             }
         }
     });
