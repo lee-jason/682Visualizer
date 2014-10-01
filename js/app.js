@@ -3,26 +3,55 @@
 
 
     
-    app.controller('FormController', function($scope){
+    app.controller('FormController', function($scope, KillstreakMessages){
         var that = this;
 
+        this.ksMessages = KillstreakMessages;
+        
         this.toggleData = {
             t681: true,
             t682: true,
             t682b: true
         }
         
-        this.victimNW = 13425;
-        this.killerTeamXP = 72000;
-        this.victimTeamXP = 82000;
         this.victimKillStreak = 4;
         this.victimTeamNW = 45000;
+        this.victimTeamXP = 82000;
+        this.victimNW = 13425;
         this.killerTeamNW = 34000;
+        this.killerTeamXP = 72000;
         this.assistingHeroes = 4;
+        
+        
+        this.updateValuesFromCode = function(){
+            console.log('update values hit');
+            var config = $.parseJSON(that.shareableCode);
+            that.victimKillStreak = config.victimKillStreak;
+            that.victimTeamNW = config.victimTeamNW;
+            that.victimTeamXP = config.victimTeamXP;
+            that.victimNW = config.victimNW;
+            that.killerTeamNW = config.killerTeamNW;
+            that.killerTeamXP = config.killerTeamXP;
+            that.assistingHeroes = config.assistingHeroes;
+        }
+        
+        var generateShareCodeString = function(){
+            return JSON.stringify({
+                victimKillStreak: that.victimKillStreak,
+                victimTeamNW: that.victimTeamNW,
+                victimTeamXP: that.victimTeamXP,
+                victimNW: that.victimNW,
+                killerTeamNW: that.killerTeamNW,
+                killerTeamXP: that.killerTeamXP,
+                assistingHeroes: that.assistingHeroes})
+        }
+        
+        this.shareableCode = generateShareCodeString();
         
         this.update = function(name){
             updateView(name);
             updateCalculation();
+            
         }
         
         var updateCalculation = function(name){
@@ -54,6 +83,7 @@
             if(name==="assistingHeroes"){
                 that.assistingHeroes = parseInt(that.assistingHeroes);
             }
+            that.shareableCode = generateShareCodeString();
         }
     });
     
@@ -1093,4 +1123,6 @@
     });
     
     app.constant('ExperiencePerLevel', [0,200,500,900,1400,2000,2600,3200,4400,5400,6000,8200,9000,10400,11900,13500,15200,17000,18900,20900,23000,25200,27500,29900,32400]);
+    
+    app.constant('KillstreakMessages', ['', '', '', 'Killing Spree', 'Dominating', 'Mega Kill', 'Unstoppable', 'Wicked Sick', 'Monster Kill', 'Godlike', 'Beyond Godlike']);
 })();

@@ -178,3 +178,16 @@ h1 {
 .graphgroup h3{
     margin-left:50px
 }
+
+span.killstreakMessage {
+    position: absolute;
+    margin-left: -175px;
+    margin-top: -12px;
+}
+
+textarea.saveCodeArea {
+    display: block;
+    width: 500px;
+    height: 50px;
+    overflow: hidden;
+}
