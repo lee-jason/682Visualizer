@@ -250,7 +250,166 @@
                             data682b.push(ClashManager.calculateKillXP(i+1));      
                         }       
                     }
-                            
+                    else if(attr.type==="killsBackToEvenGold"){
+                        for(var i = 0; i < 25; i++){
+                            var killerTeamNW = scope.formCtrl.killerTeamNW;
+                            var victimTeamNW = scope.formCtrl.victimTeamNW;
+                            var repeatCounter = 0;
+                            while(killerTeamNW < victimTeamNW){
+                                repeatCounter+=1;
+                                killerTeamNW += ClashManager.calculate681TotalTeamGoldGain(scope.formCtrl.victimKillStreak, i+1, scope.formCtrl.assistingHeroes)
+                            }
+                            data681.push(repeatCounter);
+                        }
+                        for(var i = 0; i < 25; i++){
+                            var killerTeamNW = scope.formCtrl.killerTeamNW;
+                            var victimTeamNW = scope.formCtrl.victimTeamNW;
+                            var repeatCounter = 0;
+                            while(killerTeamNW < victimTeamNW){
+                                repeatCounter+=1;
+                                killerTeamNW += ClashManager.calculate682TotalTeamGoldGain(scope.formCtrl.victimKillStreak, scope.formCtrl.victimNW, i+1, killerTeamNW, scope.formCtrl.victimTeamNW,scope.formCtrl.assistingHeroes)
+                            }
+                            data682.push(repeatCounter);
+                        }
+                        for(var i = 0; i < 25; i++){
+                            var killerTeamNW = scope.formCtrl.killerTeamNW;
+                            var victimTeamNW = scope.formCtrl.victimTeamNW;
+                            var repeatCounter = 0;
+                            while(killerTeamNW < victimTeamNW){
+                                repeatCounter+=1;
+                                killerTeamNW += ClashManager.calculate682bTotalTeamGoldGain(scope.formCtrl.victimKillStreak, scope.formCtrl.victimNW, i+1, killerTeamNW, scope.formCtrl.victimTeamNW,scope.formCtrl.assistingHeroes)
+                            }
+                            data682b.push(repeatCounter);
+                        }
+                    }
+                    else if(attr.type==="killsBackToEvenExp"){
+                        for(var i = 0; i < 25; i++){
+                            var killerTeamXP = scope.formCtrl.killerTeamXP;
+                            var victimTeamXP = scope.formCtrl.victimTeamXP;
+                            var repeatCounter = 0;
+                            while(killerTeamXP < victimTeamXP){
+                                repeatCounter+=1;
+                                killerTeamXP += ClashManager.calculate681TotalTeamExpGain(i+1, scope.formCtrl.assistingHeroes);
+                            }
+                            data681.push(repeatCounter);
+                        }
+                        for(var i = 0; i < 25; i++){
+                            var killerTeamXP = scope.formCtrl.killerTeamXP;
+                            var victimTeamXP = scope.formCtrl.victimTeamXP;
+                            var repeatCounter = 0;
+                            while(killerTeamXP < victimTeamXP){
+                                repeatCounter+=1;
+                                killerTeamXP += ClashManager.calculate682TotalTeamExpGain(i+1, ExperiencePerLevel[i], killerTeamXP, victimTeamXP, scope.formCtrl.assistingHeroes);
+                            }
+                            data682.push(repeatCounter);
+                        }
+                        for(var i = 0; i < 25; i++){
+                            var killerTeamXP = scope.formCtrl.killerTeamXP;
+                            var victimTeamXP = scope.formCtrl.victimTeamXP;
+                            var repeatCounter = 0;
+                            while(killerTeamXP < victimTeamXP){
+                                repeatCounter+=1;
+                                killerTeamXP += ClashManager.calculate682bTotalTeamExpGain(i+1, ExperiencePerLevel[i], killerTeamXP, victimTeamXP, scope.formCtrl.assistingHeroes);
+                            }
+                            data682b.push(repeatCounter);
+                        }
+                    }
+                    else if(attr.type==="killsBackToEvenVictim"){
+                        for(var i = 0; i < 25; i++){
+                            var killerTeamXP = scope.formCtrl.killerTeamXP;
+                            var victimTeamXP = scope.formCtrl.victimTeamXP;
+                            var repeatCounter = 0;
+                            while(killerTeamXP < victimTeamXP){
+                                repeatCounter+=1;
+                                killerTeamXP += ClashManager.calculate681TotalTeamExpGain(i+1, scope.formCtrl.assistingHeroes);
+                            }
+                            data681.push(repeatCounter);
+                        }
+                        for(var i = 0; i < 25; i++){
+                            var killerTeamXP = scope.formCtrl.killerTeamXP;
+                            var victimTeamXP = scope.formCtrl.victimTeamXP;
+                            var repeatCounter = 0;
+                            while(killerTeamXP < victimTeamXP){
+                                repeatCounter+=1;
+                                killerTeamXP += ClashManager.calculate682TotalTeamExpGain(i+1, ExperiencePerLevel[i], killerTeamXP, victimTeamXP, scope.formCtrl.assistingHeroes);
+                            }
+                            data682.push(repeatCounter);
+                        }
+                        for(var i = 0; i < 25; i++){
+                            var killerTeamXP = scope.formCtrl.killerTeamXP;
+                            var victimTeamXP = scope.formCtrl.victimTeamXP;
+                            var repeatCounter = 0;
+                            while(killerTeamXP < victimTeamXP){
+                                repeatCounter+=1;
+                                killerTeamXP += ClashManager.calculate682bTotalTeamExpGain(i+1, ExperiencePerLevel[i], killerTeamXP, victimTeamXP, scope.formCtrl.assistingHeroes);
+                            }
+                            data682b.push(repeatCounter);
+                        }
+                    }
+                    else if(attr.type==="killsToDoubleGoldLead"){
+                        for(var i = 0; i < 25; i++){
+                            var killerTeamNW = scope.formCtrl.killerTeamNW;
+                            var victimTeamNW = scope.formCtrl.victimTeamNW;
+                            var repeatCounter = 0;
+                            while(killerTeamNW < victimTeamNW * 2){
+                                repeatCounter+=1;
+                                killerTeamNW += ClashManager.calculate681TotalTeamGoldGain(scope.formCtrl.victimKillStreak, i+1, scope.formCtrl.assistingHeroes)
+                            }
+                            data681.push(repeatCounter);
+                        }
+                        for(var i = 0; i < 25; i++){
+                            var killerTeamNW = scope.formCtrl.killerTeamNW;
+                            var victimTeamNW = scope.formCtrl.victimTeamNW;
+                            var repeatCounter = 0;
+                            while(killerTeamNW < victimTeamNW * 2){
+                                repeatCounter+=1;
+                                killerTeamNW += ClashManager.calculate682TotalTeamGoldGain(scope.formCtrl.victimKillStreak, scope.formCtrl.victimNW, i+1, killerTeamNW, scope.formCtrl.victimTeamNW,scope.formCtrl.assistingHeroes)
+                            }
+                            data682.push(repeatCounter);
+                        }
+                        for(var i = 0; i < 25; i++){
+                            var killerTeamNW = scope.formCtrl.killerTeamNW;
+                            var victimTeamNW = scope.formCtrl.victimTeamNW;
+                            var repeatCounter = 0;
+                            while(killerTeamNW < victimTeamNW * 2){
+                                repeatCounter+=1;
+                                killerTeamNW += ClashManager.calculate682bTotalTeamGoldGain(scope.formCtrl.victimKillStreak, scope.formCtrl.victimNW, i+1, killerTeamNW, scope.formCtrl.victimTeamNW,scope.formCtrl.assistingHeroes)
+                            }
+                            data682b.push(repeatCounter);
+                        }
+                    }
+                    else if(attr.type==="killsToDoubleExpLead"){
+                        for(var i = 0; i < 25; i++){
+                            var killerTeamXP = scope.formCtrl.killerTeamXP;
+                            var victimTeamXP = scope.formCtrl.victimTeamXP;
+                            var repeatCounter = 0;
+                            while(killerTeamXP < victimTeamXP * 2){
+                                repeatCounter+=1;
+                                killerTeamXP += ClashManager.calculate681TotalTeamExpGain(i+1, scope.formCtrl.assistingHeroes);
+                            }
+                            data681.push(repeatCounter);
+                        }
+                        for(var i = 0; i < 25; i++){
+                            var killerTeamXP = scope.formCtrl.killerTeamXP;
+                            var victimTeamXP = scope.formCtrl.victimTeamXP;
+                            var repeatCounter = 0;
+                            while(killerTeamXP < victimTeamXP * 2){
+                                repeatCounter+=1;
+                                killerTeamXP += ClashManager.calculate682TotalTeamExpGain(i+1, ExperiencePerLevel[i], killerTeamXP, victimTeamXP, scope.formCtrl.assistingHeroes);
+                            }
+                            data682.push(repeatCounter);
+                        }
+                        for(var i = 0; i < 25; i++){
+                            var killerTeamXP = scope.formCtrl.killerTeamXP;
+                            var victimTeamXP = scope.formCtrl.victimTeamXP;
+                            var repeatCounter = 0;
+                            while(killerTeamXP < victimTeamXP * 2){
+                                repeatCounter+=1;
+                                killerTeamXP += ClashManager.calculate682bTotalTeamExpGain(i+1, ExperiencePerLevel[i], killerTeamXP, victimTeamXP, scope.formCtrl.assistingHeroes);
+                            }
+                            data682b.push(repeatCounter);
+                        }
+                    }
 
                 }
 
