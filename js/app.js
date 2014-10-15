@@ -1358,12 +1358,13 @@
                 var ogOffsetTop = $(elem).offset().top;
                 $(window).on('scroll', function(){
                     if($(window).scrollTop() > ogOffsetTop){
-                         //$(elem).css('top', ogOffsetTop);
-						 $(elem).css('position', 'fixed');
-						 $(elem).css('top', '0px');
+                         $(elem).css('top', $(window).scrollTop() - ogOffsetTop);
+						 //$(elem).css('position', 'fixed');
+						 //$(elem).css('top', '0px');
                     }
                     else{
-                        $(elem).css('position', 'absolute');
+						$(elem).css('top', '0');
+                        //$(elem).css('position', 'absolute');
                     }
                 });
             }
