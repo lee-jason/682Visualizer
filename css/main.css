@@ -116,6 +116,11 @@ body {
     color: #ffb220;
 }
 
+.b682c{
+	background-color:#FF4BFF;
+    color: #FF4BFF;
+}
+
 .legend span {
     border:none;
     position:relative;
@@ -131,13 +136,16 @@ body {
     color: #0062ff;
     font-weight:bold;
 }
+.a682{  
+    color: #f00;
+    font-weight:bold;
+}
 .a682b{
     color: #ffb220;
     font-weight:bold;
 }
-.a682{
-    
-    color: #f00;
+.a682c{
+    color: #FF4BFF;
     font-weight:bold;
 }
 

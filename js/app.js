@@ -11,7 +11,8 @@
         this.toggleData = {
             t681: true,
             t682: true,
-            t682b: true
+            t682b: true,
+			t682c: true
         }
         
         this.victimKillStreak = 4;
@@ -95,6 +96,7 @@
                     var data681 = [];
                     var data682 = [];
                     var data682b = [];
+					var data682c = [];
                     var emptydefaults = [];
                     for(var i = 0; i < 25; i++){
                         emptydefaults.push(0);   
@@ -107,12 +109,14 @@
                 var temp681Dataset = [];
                 var temp682Dataset = [];
                 var temp682bDataset = [];
+				var temp682cDataset = [];
                 
                 var reupdateChartData = function(){
                     
                     var v681Exists = false;
                     var v682Exists = false;
                     var v682bExists = false;
+					var v682cExists = false;
                     
                     for(var i = 0; i < goldChart.datasets.length; i++){
                         if(goldChart.datasets[i].label === "v681"){
@@ -124,6 +128,9 @@
                         if(goldChart.datasets[i].label === "v682b"){
                             v682bExists = true;
                         }
+						if(goldChart.datasets[i].label === "v682c"){
+                            v682cExists = true;
+                        }
                     }
                     
                     if(scope.formCtrl.toggleData.t681 && !v681Exists){
@@ -134,6 +141,9 @@
                     }
                     if(scope.formCtrl.toggleData.t682b && !v682bExists){
                         goldChart.datasets.push(temp682bDataset);   
+                    }
+					if(scope.formCtrl.toggleData.t682c && !v682cExists){
+                        goldChart.datasets.push(temp682cDataset);   
                     }
                     
                     
@@ -148,6 +158,9 @@
                         }
                         else if(goldChart.datasets[j].label === 'v682b'){
                             data = data682b;
+                        }
+						else if(goldChart.datasets[j].label === 'v682c'){
+                            data = data682c;
                         }
                         
                         for(var i = 0;i < goldChart.datasets[j].points.length;i++){
@@ -180,6 +193,14 @@
                             }
                         }   
                     }
+					if(!scope.formCtrl.toggleData.t682c){
+                        for(var i = 0; i < goldChart.datasets.length; i++){
+                            if(goldChart.datasets[i].label === 'v682c'){
+                                temp682cDataset = goldChart.datasets[i];
+                                goldChart.datasets.splice(i, 1);
+                            }
+                        }   
+                    }
 
                     goldChart.update();
                 }
@@ -188,6 +209,7 @@
                     data681 = [];
                     data682 = [];
                     data682b = [];
+					data682c = [];
                     
                     if(attr.type==="totalTeamGold"){
                         for(var i = 0; i < 25; i++){
@@ -200,6 +222,9 @@
                         for(var i = 0; i < 25; i++){
                             data682b.push(ClashManager.calculate682bTotalTeamGoldGain(scope.formCtrl.victimKillStreak, scope.formCtrl.victimNW, i+1, scope.formCtrl.killerTeamNW, scope.formCtrl.victimTeamNW,scope.formCtrl.assistingHeroes));
                         }  
+						for(var i = 0; i < 25; i++){
+                            data682c.push(ClashManager.calculate682cTotalTeamGoldGain(scope.formCtrl.victimKillStreak, scope.formCtrl.victimNW, i+1, scope.formCtrl.killerTeamNW, scope.formCtrl.victimTeamNW,scope.formCtrl.assistingHeroes));
+                        } 
                     }
                     else if(attr.type==="totalTeamExp"){
                         for(var i = 0; i < 25; i++){
@@ -211,6 +236,9 @@
                         for(var i = 0; i < 25; i++){
                             data682b.push(ClashManager.calculate682bTotalTeamExpGain(i+1, ExperiencePerLevel[i], scope.formCtrl.killerTeamXP, scope.formCtrl.victimTeamXP, scope.formCtrl.assistingHeroes));        
                         }  
+						for(var i = 0; i < 25; i++){
+                            data682c.push(ClashManager.calculate682cTotalTeamExpGain(i+1, ExperiencePerLevel[i], scope.formCtrl.killerTeamXP, scope.formCtrl.victimTeamXP, scope.formCtrl.assistingHeroes));        
+                        } 
                     }
                     if(attr.type ==="totalGold"){
                         for(var i = 0; i < 25; i++){
@@ -222,6 +250,9 @@
                         }
                         for(var i = 0; i < 25; i++){
                             data682b.push(ClashManager.calculate682bTotalKillGold(scope.formCtrl.victimKillStreak, scope.formCtrl.victimNW, i+1, scope.formCtrl.killerTeamNW, scope.formCtrl.victimTeamNW,scope.formCtrl.assistingHeroes));
+                        }  
+						for(var i = 0; i < 25; i++){
+                            data682c.push(ClashManager.calculate682cTotalKillGold(scope.formCtrl.victimKillStreak, scope.formCtrl.victimNW, i+1, scope.formCtrl.killerTeamNW, scope.formCtrl.victimTeamNW,scope.formCtrl.assistingHeroes));
                         }  
                     }
                     else if(attr.type==="bonusGold"){
@@ -235,6 +266,9 @@
                         for(var i = 0; i < 25; i++){
                             data682b.push(ClashManager.calculate682bBonusGold(scope.formCtrl.victimNW, i+1, scope.formCtrl.killerTeamNW, scope.formCtrl.victimTeamNW, scope.formCtrl.assistingHeroes));
                         }
+						for(var i = 0; i < 25; i++){
+                            data682c.push(ClashManager.calculate682cBonusGold(scope.formCtrl.victimNW, i+1, scope.formCtrl.killerTeamNW, scope.formCtrl.victimTeamNW, scope.formCtrl.assistingHeroes));
+                        }
                     }
                     else if(attr.type==="baseGold"){
                         for(var i = 0; i < 25; i++){
@@ -245,7 +279,10 @@
                         }
                         for(var i = 0; i < 25; i++){
                             data682b.push(ClashManager.calculate682KillGold(scope.formCtrl.victimKillStreak, i+1));        
-                        }         
+                        }  
+						for(var i = 0; i < 25; i++){
+                            data682c.push(ClashManager.calculate682KillGold(scope.formCtrl.victimKillStreak, i+1));        
+                        }
                     }
                     else if(attr.type==="totalExp"){
                         for(var i = 0; i < 25; i++){
@@ -256,7 +293,10 @@
                         }
                         for(var i = 0; i < 25; i++){
                             data682b.push(ClashManager.calculate682bTotalKillXP(i+1, ExperiencePerLevel[i], scope.formCtrl.killerTeamXP, scope.formCtrl.victimTeamXP, scope.formCtrl.assistingHeroes));        
-                        }     
+                        } 
+						for(var i = 0; i < 25; i++){
+                            data682c.push(ClashManager.calculate682cTotalKillXP(i+1, ExperiencePerLevel[i], scope.formCtrl.killerTeamXP, scope.formCtrl.victimTeamXP, scope.formCtrl.assistingHeroes));        
+                        }
                     }
                     else if(attr.type==="bonusExp"){
                         for(var i = 0; i < 25; i++){
@@ -267,7 +307,10 @@
                         }
                         for(var i = 0; i < 25; i++){
                             data682b.push(ClashManager.calculate682bBonusXP(i+1, ExperiencePerLevel[i], scope.formCtrl.killerTeamXP, scope.formCtrl.victimTeamXP, scope.formCtrl.assistingHeroes));          
-                        }       
+                        } 
+						for(var i = 0; i < 25; i++){
+                            data682c.push(ClashManager.calculate682cBonusXP(i+1, ExperiencePerLevel[i], scope.formCtrl.killerTeamXP, scope.formCtrl.victimTeamXP, scope.formCtrl.assistingHeroes));          
+                        }
                     }
                     else if(attr.type==="baseExp"){
                         for(var i = 0; i < 25; i++){
@@ -278,7 +321,10 @@
                         }
                         for(var i = 0; i < 25; i++){
                             data682b.push(ClashManager.calculateKillXP(i+1));      
-                        }       
+                        }  
+						for(var i = 0; i < 25; i++){
+                            data682c.push(ClashManager.calculateKillXP(i+1));      
+                        }
                     }
                     else if(attr.type==="killsBackToEvenGold"){
                         for(var i = 0; i < 25; i++){
@@ -310,6 +356,16 @@
                                 killerTeamNW += ClashManager.calculate682bTotalTeamGoldGain(scope.formCtrl.victimKillStreak, scope.formCtrl.victimNW, i+1, killerTeamNW, scope.formCtrl.victimTeamNW,scope.formCtrl.assistingHeroes)
                             }
                             data682b.push(repeatCounter);
+                        }
+						for(var i = 0; i < 25; i++){
+                            var killerTeamNW = scope.formCtrl.killerTeamNW;
+                            var victimTeamNW = scope.formCtrl.victimTeamNW;
+                            var repeatCounter = 0;
+                            while(killerTeamNW < victimTeamNW){
+                                repeatCounter+=1;
+                                killerTeamNW += ClashManager.calculate682cTotalTeamGoldGain(scope.formCtrl.victimKillStreak, scope.formCtrl.victimNW, i+1, killerTeamNW, scope.formCtrl.victimTeamNW,scope.formCtrl.assistingHeroes)
+                            }
+                            data682c.push(repeatCounter);
                         }
                     }
                     else if(attr.type==="killsBackToEvenExp"){
@@ -343,6 +399,16 @@
                             }
                             data682b.push(repeatCounter);
                         }
+						for(var i = 0; i < 25; i++){
+                            var killerTeamXP = scope.formCtrl.killerTeamXP;
+                            var victimTeamXP = scope.formCtrl.victimTeamXP;
+                            var repeatCounter = 0;
+                            while(killerTeamXP < victimTeamXP){
+                                repeatCounter+=1;
+                                killerTeamXP += ClashManager.calculate682cTotalTeamExpGain(i+1, ExperiencePerLevel[i], killerTeamXP, victimTeamXP, scope.formCtrl.assistingHeroes);
+                            }
+                            data682c.push(repeatCounter);
+                        }
                     }
                     else if(attr.type==="killsBackToEvenVictim"){
                         for(var i = 0; i < 25; i++){
@@ -374,6 +440,16 @@
                                 killerTeamXP += ClashManager.calculate682bTotalTeamExpGain(i+1, ExperiencePerLevel[i], killerTeamXP, victimTeamXP, scope.formCtrl.assistingHeroes);
                             }
                             data682b.push(repeatCounter);
+                        }
+						for(var i = 0; i < 25; i++){
+                            var killerTeamXP = scope.formCtrl.killerTeamXP;
+                            var victimTeamXP = scope.formCtrl.victimTeamXP;
+                            var repeatCounter = 0;
+                            while(killerTeamXP < victimTeamXP){
+                                repeatCounter+=1;
+                                killerTeamXP += ClashManager.calculate682cTotalTeamExpGain(i+1, ExperiencePerLevel[i], killerTeamXP, victimTeamXP, scope.formCtrl.assistingHeroes);
+                            }
+                            data682c.push(repeatCounter);
                         }
                     }
                     else if(attr.type==="killsToDoubleGoldLead"){
@@ -407,6 +483,16 @@
                             }
                             data682b.push(repeatCounter);
                         }
+						for(var i = 0; i < 25; i++){
+                            var killerTeamNW = scope.formCtrl.killerTeamNW;
+                            var victimTeamNW = scope.formCtrl.victimTeamNW;
+                            var repeatCounter = 0;
+                            while(killerTeamNW < victimTeamNW * 2){
+                                repeatCounter+=1;
+                                killerTeamNW += ClashManager.calculate682cTotalTeamGoldGain(scope.formCtrl.victimKillStreak, scope.formCtrl.victimNW, i+1, killerTeamNW, scope.formCtrl.victimTeamNW,scope.formCtrl.assistingHeroes)
+                            }
+                            data682c.push(repeatCounter);
+                        }
                     }
                     else if(attr.type==="killsToDoubleExpLead"){
                         for(var i = 0; i < 25; i++){
@@ -439,6 +525,16 @@
                             }
                             data682b.push(repeatCounter);
                         }
+						for(var i = 0; i < 25; i++){
+                            var killerTeamXP = scope.formCtrl.killerTeamXP;
+                            var victimTeamXP = scope.formCtrl.victimTeamXP;
+                            var repeatCounter = 0;
+                            while(killerTeamXP < victimTeamXP * 2){
+                                repeatCounter+=1;
+                                killerTeamXP += ClashManager.calculate682cTotalTeamExpGain(i+1, ExperiencePerLevel[i], killerTeamXP, victimTeamXP, scope.formCtrl.assistingHeroes);
+                            }
+                            data682c.push(repeatCounter);
+                        }
                     }
 
                 }
@@ -465,6 +561,13 @@
                         pointColor: "#ffb220",
                         strokeColor: "#ffb220",
                         data: emptydefaults
+                    },
+					{
+                        label: 'v682c',
+                        fillColor: 'rgba(220, 220, 220, 0)',
+                        pointColor: "#FF4BFF",
+                        strokeColor: "#FF4BFF",
+                        data: emptydefaults
                     }
                 ];
                 var data = {
@@ -480,7 +583,7 @@
                
                 var goldChart = new Chart(elem[0].getContext('2d')).Line(data, options);
 
-                scope.$watchCollection('[formCtrl.victimKillStreak, formCtrl.victimNW, formCtrl.killerTeamXP, formCtrl.victimTeamXP, formCtrl.victimTeamNW, formCtrl.killerTeamNW, formCtrl.assistingHeroes, formCtrl.toggleData.t681, formCtrl.toggleData.t682, formCtrl.toggleData.t682b]', function(newValues, oldValues){
+                scope.$watchCollection('[formCtrl.victimKillStreak, formCtrl.victimNW, formCtrl.killerTeamXP, formCtrl.victimTeamXP, formCtrl.victimTeamNW, formCtrl.killerTeamNW, formCtrl.assistingHeroes, formCtrl.toggleData.t681, formCtrl.toggleData.t682, formCtrl.toggleData.t682b, formCtrl.toggleData.t682c]', function(newValues, oldValues){
                         reCalculateData();
                         reupdateChartData();
                 }, true);
@@ -529,6 +632,13 @@
                 totalTeamGold += that.calculate682bBonusGold(victimNW,victimLevel,alliedTeamNW,enemyTeamNW,involvedHeroCount) * involvedHeroCount;
                 return Math.floor(totalTeamGold);
             }
+			
+			this.calculate682cTotalTeamGoldGain = function(victimKillStreak, victimNW, victimLevel, alliedTeamNW, enemyTeamNW,involvedHeroCount){
+                var totalTeamGold = 0;
+                totalTeamGold += that.calculate682KillGold(victimKillStreak, victimLevel);
+                totalTeamGold += that.calculate682cBonusGold(victimNW,victimLevel,alliedTeamNW,enemyTeamNW,involvedHeroCount) * involvedHeroCount;
+                return Math.floor(totalTeamGold);
+            }
             
             this.calculate681TotalTeamExpGain = function(victimLevel, assists){
                 var totalTeamXP = 0;
@@ -548,6 +658,13 @@
                 var totalTeamXP = 0;
                 totalTeamXP += that.calculateKillXP(victimLevel);
                 totalTeamXP += that.calculate682bBonusXP(victimLevel,victimXP,alliedTeamXP,enemyTeamXP,involvedHeroCount) * involvedHeroCount;
+                return totalTeamXP;
+            }
+			
+			this.calculate682cTotalTeamExpGain = function(victimLevel, victimXP, alliedTeamXP, enemyTeamXP, involvedHeroCount){
+                var totalTeamXP = 0;
+                totalTeamXP += that.calculateKillXP(victimLevel);
+                totalTeamXP += that.calculate682cBonusXP(victimLevel,victimXP,alliedTeamXP,enemyTeamXP,involvedHeroCount) * involvedHeroCount;
                 return totalTeamXP;
             }
             
@@ -591,6 +708,20 @@
                 var totalTeamXP = 0;
                 totalTeamXP += that.calculateKillXP(victimLevel)/involvedHeroCount;
                 totalTeamXP += that.calculate682bBonusXP(victimLevel,victimXP,alliedTeamXP,enemyTeamXP,involvedHeroCount);
+                return totalTeamXP;
+            }
+			
+			this.calculate682cTotalKillGold = function(victimKillStreak, victimNW, victimLevel, alliedTeamNW, enemyTeamNW,involvedHeroCount){
+                var totalTeamGold = 0;
+                totalTeamGold += that.calculate682KillGold(victimKillStreak, victimLevel);
+                totalTeamGold += that.calculate682cBonusGold(victimNW,victimLevel,alliedTeamNW,enemyTeamNW,involvedHeroCount);
+                return Math.floor(totalTeamGold);
+            }
+            
+            this.calculate682cTotalKillXP = function(victimLevel, victimXP, alliedTeamXP, enemyTeamXP, involvedHeroCount){
+                var totalTeamXP = 0;
+                totalTeamXP += that.calculateKillXP(victimLevel)/involvedHeroCount;
+                totalTeamXP += that.calculate682cBonusXP(victimLevel,victimXP,alliedTeamXP,enemyTeamXP,involvedHeroCount);
                 return totalTeamXP;
             }
             
@@ -922,6 +1053,61 @@
                         break;
                 }
             }
+			
+			this.calculate682cBonusXP = function(victimLevel, victimXP, alliedTeamXP, enemyTeamXP, involvedHeroCount){
+                
+                /**
+                This change only affects the extra XP given if within an area after a kill. 
+                It does not affect the natural XP you get for killing a hero of a certain Level. 
+                the killer also benefits from bonus xp
+
+                I think these values are already pre-split.. meaning I don't need to further split the xp between assists.
+
+                New:
+                ==============
+                VictimLevel = Level of the Victim
+                VictimXP = Total XP of the Victim
+                EnemyTeamXP = Enemy team's total XP
+                AlliedTeamXP = Your team's total XP
+                XPDifference = ( EnemyTeamXP - AlliedTeamXP )/ ( EnemyTeamXP + AlliedTeamXP ) (minimum 0)
+                XPFactor = XPDifference * VictimXP
+
+                6.82b XP Factors:
+                ----------------------
+                1 Hero: XP = 20 * VictimLevel + XPFactor * 0.3
+                2 Heroes: XP = 15 * VictimLevel + XPFactor * 0.3
+                3 Heroes: XP = 10 * VictimLevel + XPFactor * 0.2
+                4 Heroes: XP = 7 * VictimLevel + XPFactor * 0.15
+                5 Heroes: XP = 5 * VictimLevel + XPFactor * 0.12
+				
+				
+					* AoE XP XPFactor reduced from 0.3/0.3/0.2/0.15/0.12 to 0.23/0.23/0.2/0.15/0.12
+                */
+				
+				
+
+                var xpDifference = (enemyTeamXP - alliedTeamXP) / (enemyTeamXP + alliedTeamXP);
+                if(isNaN(xpDifference) || xpDifference < 0){xpDifference=0;};
+                var xpFactor = xpDifference * victimXP;
+                
+                switch(involvedHeroCount){
+                    case 1:
+                        return 20 * victimLevel + xpFactor * 0.23;
+                        break;
+                    case 2:
+                        return 15 * victimLevel + xpFactor * 0.23;
+                        break;
+                    case 3:
+                        return 10 * victimLevel + xpFactor * 0.2;
+                        break;
+                    case 4:
+                        return 7 * victimLevel + xpFactor * 0.15;
+                        break;
+                    case 5:
+                        return 5 * victimLevel + xpFactor * 0.12;
+                        break;
+                }
+            }
             
             this.calculate682BonusGold = function(victimNW, victimLevel, alliedTeamNW, enemyTeamNW,involvedHeroCount){
                 /**
@@ -1032,6 +1218,66 @@
                         break;
                 }
             }
+			
+			this.calculate682cBonusGold = function(victimNW, victimLevel, alliedTeamNW, enemyTeamNW,involvedHeroCount){
+                /**
+                This change only affects the extra Gold given if within an area after a kill. 
+                It does not affect the natural Gold received for killing a hero of a certain Level/Streak. 
+
+
+
+                New:
+                ==============
+                The player that got the last hit now also gets the area of effect bounty.
+
+                6.82b Gold Formula
+                -------------------------
+                VictimLevel = Level of the Victim
+                VictimNW = The victim's Net Worth
+                EnemyTeamNW = Enemy team's total Net Worth
+                AlliedTeamNW = Your team's total Net Worth
+                NWDifference = ( EnemyTeamNW / AlliedTeamNW ) - 1 [Min 0, Max 1]
+                NWFactor = NWDifference * VictimNW
+
+                1 Hero: Gold = 40 + 7 * VictimLevel + NWFactor * 0.06
+                2 Heroes: Gold = 30 + 6 * VictimLevel + NWFactor * 0.06
+                3 Heroes: Gold = 20 + 5 * VictimLevel + NWFactor * 0.05
+                4 Heroes: Gold = 10 + 4 * VictimLevel + NWFactor * 0.04
+                5 Heroes: Gold = 10 + 4 * VictimLevel + NWFactor * 0.03
+
+                                6.82b Full details (from initial 6.82 to 6.82b)
+                ===========================
+                * Kill Streak Bounty from 100->800 to 60->480 (6.81: 125->1000)
+                * Adjusted bonus area of effect Gold and XP 
+                ADDENDUM, changed after sept 27 patch 
+                Reduced AoE Gold bonus Net Worth Factor for 1/2/3/4/5 hero kills from 0.5/0.35/0.25/0.2/0.15 to 0.26/0.22/0.18/0.14/0.10
+				
+				6.82c
+				* AoE Gold NWFactor reduced from 0.06/0.06/0.05/0.04/0.03 to 0.05/0.05/0.05/0.04/0.03
+                */
+                var nwDifference = (enemyTeamNW / alliedTeamNW) - 1;
+                if(nwDifference > 1){nwDifference = 1;};
+                if(isNaN(nwDifference) || nwDifference < 0){nwDifference = 0;};
+                var nwFactor = nwDifference * victimNW;
+                
+                switch(involvedHeroCount){
+                    case 1:
+                        return 40 + 7 * victimLevel + nwFactor * 0.05;
+                        break;
+                    case 2:
+                        return 30 + 6 * victimLevel + nwFactor * 0.05;
+                        break;
+                    case 3:
+                        return 20 + 5 * victimLevel + nwFactor * 0.05;
+                        break;
+                    case 4:
+                        return 10 + 4 * victimLevel + nwFactor * 0.04;
+                        break;
+                    case 5:
+                        return 10 + 4 * victimLevel + nwFactor * 0.03;
+                        break;
+                }
+            }
         }
     });
 
@@ -1112,10 +1358,12 @@
                 var ogOffsetTop = $(elem).offset().top;
                 $(window).on('scroll', function(){
                     if($(window).scrollTop() > ogOffsetTop){
-                         $(elem).css('top', $(window).scrollTop() - ogOffsetTop);
+                         //$(elem).css('top', ogOffsetTop);
+						 $(elem).css('position', 'fixed');
+						 $(elem).css('top', '0px');
                     }
                     else{
-                        $(elem).css('top', '0');
+                        $(elem).css('position', 'absolute');
                     }
                 });
             }
