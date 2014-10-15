@@ -21,7 +21,7 @@
         this.victimNW = 13425;
         this.killerTeamNW = 34000;
         this.killerTeamXP = 72000;
-        this.assistingHeroes = 4;
+        this.assistingHeroes = 2;
         
         
         this.updateValuesFromCode = function(){
